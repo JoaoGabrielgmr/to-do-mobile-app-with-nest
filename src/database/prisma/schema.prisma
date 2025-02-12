@@ -1,0 +1,53 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  Id Int @default(autoincrement()) @id
+  email String @unique
+  name String
+  phone String
+  password String
+  status Boolean @default(true)
+  avatar String @default("")
+
+  Board Board[]
+}
+
+model Board {
+  Id Int @default(autoincrement()) @id
+  name String
+  color String @default("FFFFFF") //white color
+  user User?  @relation(fields: [userId], references: [Id])
+  userId Int?
+
+  Note Note[]
+  Category Category[]
+}
+
+model Note {
+  Id Int @default(autoincrement()) @id
+  title String?
+  text String? 
+  board Board? @relation(fields: [boardId], references: [Id])
+  boardId Int?
+}
+
+model Category {
+  Id Int @default(autoincrement()) @id
+  name String
+
+  board Board? @relation(fields: [boardId], references: [Id])
+  boardId Int?
+}
