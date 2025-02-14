@@ -1,26 +1,30 @@
 import { Injectable } from '@nestjs/common';
 import { CreateNoteDto } from './dto/create-note.dto';
 import { UpdateNoteDto } from './dto/update-note.dto';
+import { Prisma } from '@prisma/client';
+import { NoteRepository } from 'src/database/prisma/repositories/note.repository';
 
 @Injectable()
 export class NoteService {
-  create(createNoteDto: CreateNoteDto) {
-    return 'This action adds a new note';
+  constructor(private noteRepository: NoteRepository) {}
+
+  async findOne(noteWhereInput: Prisma.NoteWhereInput) {
+    return this.noteRepository.findOne(noteWhereInput)
   }
 
-  findAll() {
-    return `This action returns all note`;
+  async create(createNoteDto: CreateNoteDto) {
+    return this.noteRepository.create(createNoteDto);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} note`;
+  async findAll() {
+    return this.noteRepository.findAll();
   }
 
-  update(id: number, updateNoteDto: UpdateNoteDto) {
-    return `This action updates a #${id} note`;
+  async update(id: number, updateNoteDto: UpdateNoteDto) {
+    return this.noteRepository.update({Id: id}, updateNoteDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} note`;
+  async remove(id: number) {
+    return this.noteRepository.remove({Id: id});
   }
 }

@@ -1,26 +1,30 @@
 import { Injectable } from '@nestjs/common';
 import { CreateCategoryDto } from './dto/create-category.dto';
-import { UpdateCategoryDto } from './dto/update-category.dto';
+import { Prisma } from '@prisma/client';
+import { CategoryRepository } from 'src/database/prisma/repositories/category.repository';
 
 @Injectable()
 export class CategoryService {
-  create(createCategoryDto: CreateCategoryDto) {
-    return 'This action adds a new category';
+
+  constructor(private readonly categoryRepository: CategoryRepository) {}
+
+  async findOne(categoryWhereInput: Prisma.CategoryWhereInput) {
+      return this.categoryRepository.findOne(categoryWhereInput)
   }
 
-  findAll() {
-    return `This action returns all category`;
+  async create(createCategoryDto: CreateCategoryDto) {
+    return this.categoryRepository.create(createCategoryDto);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} category`;
+  async findAll(categoryWhereInput: Prisma.CategoryWhereInput) {
+    return this.categoryRepository.findAll(categoryWhereInput);
   }
 
-  update(id: number, updateCategoryDto: UpdateCategoryDto) {
-    return `This action updates a #${id} category`;
+  async findBoardByCategory(categoryWhereInput: Prisma.CategoryWhereInput) {
+    return this.categoryRepository.findBoardByCategory(categoryWhereInput);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} category`;
+  async remove(id: number) {
+    return this.categoryRepository.delete(id);
   }
 }

@@ -21,33 +21,37 @@ model User {
   password String
   status Boolean @default(true)
   avatar String @default("")
-
-  Board Board[]
+  
+  categories Category[]
+  boards Board[]
 }
 
 model Board {
   Id Int @default(autoincrement()) @id
   name String
-  color String @default("FFFFFF") //white color
-  user User?  @relation(fields: [userId], references: [Id])
   userId Int?
+  categoryId Int?
 
-  Note Note[]
-  Category Category[]
+  user User?  @relation(fields: [userId], references: [Id], onDelete: Cascade)
+  category Category? @relation(fields: [categoryId], references: [Id])
+  notes Note[]
 }
 
 model Note {
   Id Int @default(autoincrement()) @id
   title String?
   text String? 
-  board Board? @relation(fields: [boardId], references: [Id])
   boardId Int?
+
+  board Board? @relation(fields: [boardId], references: [Id], onDelete: Cascade)
 }
 
 model Category {
   Id Int @default(autoincrement()) @id
   name String
+  color String @default("F3DB6E") //yellow color
+  userId Int?
 
-  board Board? @relation(fields: [boardId], references: [Id])
-  boardId Int?
+  user User? @relation(fields: [userId], references: [Id], onDelete: Cascade)
+  boards Board[]
 }

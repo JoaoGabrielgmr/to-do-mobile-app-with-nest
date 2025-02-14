@@ -1,12 +1,23 @@
 import { Module } from "@nestjs/common";
-import { UserService } from "src/user/user.service";
 import { UserRepository } from "./repositories/user.repository";
 import { PrismaService } from "./prisma.service";
-import { UserController } from "src/user/user.controller";
+import { BoardRepository } from "./repositories/board.repository";
+import { NoteRepository } from "./repositories/note.repository";
+import { CategoryRepository } from "./repositories/category.repository";
 
 @Module({
-    exports: [UserRepository, PrismaService],
-    providers: [UserRepository, PrismaService]
+    exports: [
+        CategoryRepository,
+        UserRepository,
+        BoardRepository,
+        NoteRepository,
+        PrismaService],
+    providers: [
+        CategoryRepository,
+        UserRepository,
+        BoardRepository,
+        NoteRepository,
+        PrismaService]
 })
 
-export class DataBaseModule{}
+export class DataBaseModule {}

@@ -1,6 +1,8 @@
 import { Global, Injectable } from "@nestjs/common";
 import { PrismaService } from "../prisma.service";
 import {Prisma} from '@prisma/client'
+import { UpdateUserPasswordDto } from "src/user/dto/update-user-passwd.dto";
+import { UpdateUserDto } from "src/user/dto/update-user.dto";
 
 
 @Global()
@@ -14,5 +16,30 @@ export class UserRepository{
         })
     }
 
+    async create(data: Prisma.UserCreateInput) {
+        return this.prisma.user.create({
+            data
+        })
+    }
+
+    async updatePassword(params: {Id: number}, data: UpdateUserPasswordDto) {
+        return this.prisma.user.update({
+            where: {Id: params.Id},
+            data: data
+        })
+    }
+
+    async update(params: {Id: number}, data: UpdateUserDto) {
+        return this.prisma.user.update({
+            where: {Id: params.Id},
+            data: data
+        })
+    }
+
+    async remove(id: number) {
+        return this.prisma.user.delete({
+            where: {Id: id}
+        })
+    }
 
 }
