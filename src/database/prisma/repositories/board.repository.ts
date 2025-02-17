@@ -1,7 +1,7 @@
 import { Global, Injectable } from "@nestjs/common";
 import { PrismaService } from "../prisma.service";
 import {Prisma} from '@prisma/client'
-import { UpdateBoardDto } from "src/board/dto/update-board.dto";
+import { UpdateBoardDto } from "src/modules/board/dto/update-board.dto";
 
 
 @Global()

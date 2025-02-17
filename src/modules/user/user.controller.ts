@@ -1,8 +1,20 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Query,
+  Req,
+} from '@nestjs/common';
 import { UserService } from './user.service';
 import { UpdateUserPasswordDto } from './dto/update-user-passwd.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { request } from 'http';
+import { Public } from 'src/shared/decorators/public.decorator';
 
 @Controller('user')
 export class UserController {
@@ -20,8 +32,8 @@ export class UserController {
 
   @Get(':id')
   findUserById(@Param('id') id: string) {
-    return this.userService.findUserbyId({
-      Id: parseInt(id)
+    return this.userService.findOne({
+      Id: parseInt(id),
     });
   }
 
@@ -39,4 +51,9 @@ export class UserController {
   remove(@Param('id') id: string) {
     return this.userService.remove(+id);
   }
+
+  // @Get('email/:email')
+  // find(@Param('email') email: string) {
+  //   return this.userService.findbyEmail({ email });
+  // }
 }
