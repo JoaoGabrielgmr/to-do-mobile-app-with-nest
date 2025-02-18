@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Query,
+} from '@nestjs/common';
 import { NoteService } from './note.service';
 import { CreateNoteDto } from './dto/create-note.dto';
 import { UpdateNoteDto } from './dto/update-note.dto';
@@ -18,8 +27,8 @@ export class NoteController {
   }
 
   @Get('note/:Id')
-  findOne(@Query() {Id, boardId} ) {
-    return this.noteService.findOne({Id: +Id, boardId: +boardId});
+  findOne(@Query() { Id, boardId }) {
+    return this.noteService.findOne({ Id: +Id, boardId: +boardId });
   }
 
   @Patch(':id')

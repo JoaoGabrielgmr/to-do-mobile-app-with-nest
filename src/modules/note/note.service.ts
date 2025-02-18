@@ -9,7 +9,7 @@ export class NoteService {
   constructor(private noteRepository: NoteRepository) {}
 
   async findOne(noteWhereInput: Prisma.NoteWhereInput) {
-    return this.noteRepository.findOne(noteWhereInput)
+    return this.noteRepository.findOne(noteWhereInput);
   }
 
   async create(createNoteDto: CreateNoteDto) {
@@ -21,10 +21,10 @@ export class NoteService {
   }
 
   async update(id: number, updateNoteDto: UpdateNoteDto) {
-    return this.noteRepository.update({Id: id}, updateNoteDto);
+    return this.noteRepository.update({ Id: id }, updateNoteDto);
   }
 
   async remove(id: number) {
-    return this.noteRepository.remove({Id: id});
+    return this.noteRepository.remove({ Id: id });
   }
 }

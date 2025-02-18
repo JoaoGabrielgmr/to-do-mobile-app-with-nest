@@ -44,7 +44,17 @@ model Note {
   boardId Int?
 
   board Board? @relation(fields: [boardId], references: [Id], onDelete: Cascade)
+  files File[]
 }
+
+model File {
+  Id Int @default(autoincrement()) @id
+  name String
+
+  noteId Int
+  note Note @relation(fields: [noteId], references: [Id])
+}
+
 
 model Category {
   Id Int @default(autoincrement()) @id

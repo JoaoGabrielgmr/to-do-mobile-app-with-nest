@@ -21,22 +21,28 @@ import { AuthModule } from './modules/auth/auth.module';
 import { AppController } from './app.controller';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './modules/auth/guards/jwt-auth.guard';
+import { FileModule } from './modules/file/file.module';
+import { FileController } from './modules/file/file.controller';
+import { FileService } from './modules/file/file.service';
 
 @Module({
   imports: [
     UserModule,
     BoardModule,
     NoteModule,
+    FileModule,
     CategoryModule,
     ConfigModule.forRoot({ isGlobal: true }),
     DataBaseModule,
     AuthModule,
+    ConfigModule,
   ],
 
   controllers: [
     UserController,
     BoardController,
     NoteController,
+    FileController,
     CategoryController,
     AppController,
   ],
@@ -48,6 +54,7 @@ import { JwtAuthGuard } from './modules/auth/guards/jwt-auth.guard';
     },
     CategoryService,
     NoteService,
+    FileService,
     BoardService,
   ],
 })
